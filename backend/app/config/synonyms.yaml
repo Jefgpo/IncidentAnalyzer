@@ -1,0 +1,40 @@
+# Sinónimos (ES/EN) de encabezados para el mapeo automático de columnas.
+# Se comparan normalizados: minúsculas, sin tildes, solo letras y números.
+timestamp: [fechahora, fecha, hora, timestamp, time, timegenerated, timecreated, datetime, eventtime, date,
+            marcatemporal, marcadetiempo, fechaevento, fechadelevento, createdat, utctime, eventtimestamp, logtime, fechayhora]
+log_id: [logid, eventrecordid, recordid, registroid, iddelregistro, idlog, eventuid, alertid, uid]
+log_source: [logsource, fuentelog, fuentedellog, fuente, sourcetype, sourcename, channel, canal, provider, proveedor, logtype, tipodelog]
+destination: [destination, destino, dest, target, objetivo, destinationdetail]
+dst_host: [hostdestino, destinationhost, desthost, targethost, equipodestino]
+bytes_out: [bytesout, bytessent, sentbytes, outbytes, csbytes, bytesenviados, txbytes, uploadbytes]
+siem_severity: [severity, severidad, criticidad, level, nivel, priority, prioridad, risklevel]
+user: [cuenta, usuario, user, username, account, accountname, subjectusername, userprincipalname, upn, login,
+       nombredecuenta, nombredeusuario, usr, suser, actor]
+target_user: [cuentadestino, usuariodestino, targetuser, targetaccount, membername, miembro, targetusername,
+              cuentaobjetivo, duser]
+host: [equipo, host, hostname, computer, computername, device, devicename, maquina, servidor, workstation,
+       nombredeequipo, dvc, dvchost, endpoint, asset, activo]
+src_ip: [iporigen, sourceip, srcip, clientip, ipaddress, sourceaddress, ipcliente, direccionip, remoteip, callerip,
+         ipdeorigen, src, sourcenetworkaddress, ip]
+dst_ip: [ipdestino, destinationip, dstip, destip, destinationaddress, targetip, serverip, ipdedestino, dst]
+src_host: [equipoorigen, sourcehost, workstationname, sourceworkstation, srchost, sourcehostname, hostorigen]
+event_id: [eventid, idevento, eventcode, idelevento, evento, codigoevento, eventidentifier, signatureid, ideventowindows]
+action: [accion, action, activity, operation, operacion, eventtype, tipodeevento, categoria, category, tarea, task]
+outcome: [resultado, result, status, estado, outcome, eventresult, keywords, auditresult]
+logon_type: [tipodeiniciodesesion, logontype, tipologon, tipodelogon, tipoinicio, tipodeinicio, logontypename]
+process: [proceso, process, image, newprocessname, processname, imagen, ejecutable, processpath, rutaproceso]
+parent_process: [procesopadre, parentimage, parentprocess, parentprocessname, creatorprocessname, procesoprincipal]
+command_line: [lineadecomando, commandline, cmdline, command, comando, processcommandline, lineadecomandos]
+hash: [hash, sha256, sha1, md5, hashes, filehash, hashsha256]
+group: [grupo, group, groupname, targetgroup, nombredegrupo, grupodeseguridad]
+privileges: [privilegios, privileges, privilegelist, listadeprivilegios]
+share: [recursocompartido, nombrederecursocompartido, sharename, share, carpetacompartida]
+service: [nombredeservicio, servicename, service, servicio]
+country: [pais, country, geocountry, countrycode, codigopais, geopais]
+city: [ciudad, city, geocity]
+lat: [latitud, latitude, lat, geolat]
+lon: [longitud, longitude, lon, lng, geolon]
+domain: [dominio, domain, url, destinationhostname, queryname, fqdn, requesturl, sitio]
+port: [puerto, port, destinationport, dstport, puertodestino]
+message: [mensaje, message, descripcion, description, eventdescription, descripciondelevento, eventmessage, details, detalle, raw, rawdata, eventdata, texto]
+assigned_ip: [ipasignada, assignedip, framedip, tunnelip, ipvpn, vpnip]

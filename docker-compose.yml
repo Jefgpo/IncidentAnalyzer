@@ -1,0 +1,22 @@
+services:
+  soc-analyzer:
+    build: .
+    image: incidentanalyzer:1.0
+    ports:
+      - "127.0.0.1:8080:8080"   # solo accesible desde la máquina local
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      CORS_ORIGINS: http://localhost:8080,http://127.0.0.1:8080
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      - sessions:/data/sessions   # sesiones cifradas: sobreviven a reinicios del contenedor
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+volumes:
+  sessions:

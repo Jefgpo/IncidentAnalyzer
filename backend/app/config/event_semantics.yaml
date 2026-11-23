@@ -1,0 +1,42 @@
+# Mapeo EventID → categoría semántica. Si el Excel no trae EventID, la categoría de
+# autenticación se deriva de la columna "resultado" (ver outcome_keywords).
+event_ids:
+  "4624": auth_ok
+  "4625": auth_fail
+  "4771": auth_fail
+  "4634": logoff
+  "4647": logoff
+  "4648": explicit_creds
+  "4672": special_priv
+  "4728": group_add
+  "4732": group_add
+  "4756": group_add
+  "4720": account_created
+  "4722": account_changed
+  "4724": account_changed
+  "4738": account_changed
+  "1102": log_cleared
+  "104": log_cleared
+  "7045": service_installed
+  "4697": service_installed
+  "5140": share_access
+  "5145": share_access
+  "4688": process_create
+  "4663": object_access
+  "4656": object_access
+  "4698": task_created
+  "4702": task_created
+  "4104": script_block
+  "5156": net_conn
+  "5157": net_conn_blocked
+  "7036": service_state
+  "4740": account_locked
+  HTTP_ACCESS: web_request
+  WEB_ACCESS: web_request
+  PROXY_ACCESS: proxy_request
+  FIREWALL: net_conn
+  "1": process_create
+
+outcome_keywords:
+  success: [success, succeeded, successful, correcto, exito, exitoso, ok, allowed, permitido, accept, accepted, aprobado, "audit success", "true"]
+  failure: [failure, failed, fail, error, fallido, fallo, denied, denegado, rechazado, reject, rejected, blocked, bloqueado, "audit failure", invalid, "false"]

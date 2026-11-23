@@ -1,0 +1,104 @@
+# Configuración del motor de detección. Todos los umbrales son editables.
+# Los cambios se aplican al próximo análisis (se relee el archivo en cada ejecución).
+
+general:
+  timezone: America/Argentina/Buenos_Aires   # zona horaria asumida para timestamps sin zona (editable en la UI)
+  dayfirst: true                    # 03/04/2026 = 3 de abril (formato latinoamericano/europeo)
+  business_hours: {start: 7, end: 20, weekdays: [0, 1, 2, 3, 4]}   # 0 = lunes
+  baseline_fraction: 0.5            # primera mitad del rango temporal = período base
+  min_baseline_hours: 48            # con menos horas de logs no hay línea base fiable: las reglas que la usan se adaptan
+  internal_networks: [10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 127.0.0.0/8, 169.254.0.0/16, "::1/128", "fc00::/7"]
+  allowed_countries: [AR, SE]       # países habituales de conexión del cliente
+  external_ip_allowlist: []         # IPs/redes externas legítimas (concentradores VPN, NAT corporativo)
+  service_account_patterns: ['^svc[_\-.]', '^sa[_\-]', '\$$', '^srv[_\-]', 'svc$', '^svc', 'apppool$', '^iusr']
+  privileged_accounts: [administrator, administrador, admin, it.admin, root]
+  critical_host_patterns: ['^DC', '-DC\d*$', 'SRV', 'DC\d+$', '^WEB', '^DB', '^SQL', '^APP', '^FS', '^EXCH', '^MAIL']
+  privileged_groups:
+    - administrators
+    - administradores
+    - domain admins
+    - admins. del dominio
+    - enterprise admins
+    - schema admins
+    - account operators
+    - backup operators
+    - server operators
+    - dnsadmins
+    - group policy creator owners
+    - wheel
+    - sudo
+  ignore_entities: [system, "local service", "network service", "-", "n/a", "anonymous logon", "nt authority\\system"]
+  remote_logon_types: ["3", "10"]
+  interactive_logon_types: ["2", "7", "10", "11"]
+
+rules:
+  BF-001: {window_minutes: 10, min_failures: 10}
+  BF-002: {window_minutes: 30, min_distinct_users: 5}
+  BF-003: {lookback_minutes: 30, min_failures: 5, min_failures_external: 3}
+  LOG-001: {}
+  LOG-002: {}
+  LOG-003: {}
+  LOG-004: {max_speed_kmh: 900, min_distance_km: 500}
+  LOG-005: {window_minutes: 15}
+  LM-001: {window_minutes: 30, min_distinct_hosts: 3}
+  LM-002: {}
+  COL-001: {window_minutes: 10, min_objects: 10}
+  EXF-001: {window_minutes: 60, min_megabytes: 50}
+  AN-001: {min_zscore: 3.0, min_events: 20, min_ratio: 3.0}
+  AN-003: {max_count: 2, max_share: 0.001}
+
+scoring:
+  # Puntaje base por regla (0–100) antes de modificadores.
+  base:
+    BF-001: 30
+    BF-002: 35
+    BF-003: 50
+    LOG-001: 30
+    LOG-002: 15
+    LOG-003: 35
+    LOG-004: 40
+    LOG-005: 35
+    PE-001: 55
+    PE-002: 40
+    PE-003: 10
+    PE-004: 35
+    EX-001: 45
+    EX-002: 40
+    EX-003: 40
+    EX-004: 35
+    EX-005: 60
+    EX-006: 50
+    EX-007: 50
+    EX-008: 40
+    EX-009: 50
+    LM-001: 40
+    LM-002: 30
+    LM-003: 45
+    LM-004: 35
+    EX-010: 25
+    EX-011: 60
+    C2-001: 45
+    WEB-001: 55
+    COL-001: 40
+    EXF-001: 55
+    AN-001: 15
+    AN-002: 15
+    AN-003: 10
+  success_bonus: 20            # solo reglas de autenticación: éxito vs intento
+  privileged_bonus: 15         # cuenta privilegiada involucrada
+  critical_host_bonus: 10      # host crítico (DC / servidor) involucrado
+  volume_max: 10               # round(5 * log10(n_filas)), tope 10
+  correlation_per_tactic: 5    # por cada táctica adicional en el mismo incidente
+  correlation_max: 15
+  anomaly_cap: 59              # las anomalías nunca superan "Medio"
+  incident_breadth_per_tactic: 2
+  bands: {critical: 80, high: 60, medium: 40}
+
+threat_intel:
+  # Umbrales para clasificar la reputación externa de IPs públicas (no alteran el puntaje del motor)
+  abuseipdb: {max_age_days: 90, malicious_score: 50, suspicious_score: 25}
+
+correlation:
+  max_gap_hours: 24            # dos hallazgos se vinculan si comparten entidad y están a ≤ N horas
+  hub_event_share: 0.3         # entidad presente en > 30 % de TODOS los eventos (p. ej. un DC o proxy) no vincula
+  anomaly_attach_minutes: 60

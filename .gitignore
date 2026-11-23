@@ -1,0 +1,35 @@
+.env
+**/.venv/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+frontend/node_modules/
+frontend/dist/
+backend/static/
+*.log
+# PDFs/exports generados durante pruebas
+informe_incidente_*.pdf
+
+# sesiones cifradas guardadas por el backend (datos del cliente)
+backend/.sessions/
+
+# configuraciÃ³n local del editor / Claude Code (contiene rutas de tu equipo)
+.claude/
+
+# variables de entorno: solo se publica .env.example
+.env
+.env.*
+!.env.example
+
+# sesiones y copias de seguridad locales
+*.session
+*.bak
+
+# sistema operativo / editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# artefactos de compilación de TypeScript
+*.tsbuildinfo
